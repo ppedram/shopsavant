@@ -1,0 +1,6 @@
+<h1>All products scanned in <%= @collection["handle"] %>!</h1>
+<ul>
+    <% @products.each do |product| %>
+    <li><%= product["handle"] %></li>
+    <% end %>
+</ul>

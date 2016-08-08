@@ -1,0 +1,5 @@
+<ul>
+<% for i in 1..@data.length %>
+<li>Day <%= i %> = <%= @data[i]["title"] %> - Inventory: <%= @data[i]["inventory"] %></li>
+<% end %>
+</ul>
