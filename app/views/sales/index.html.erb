@@ -1,5 +1,34 @@
-<ul>
-<% for i in 1..@data.length %>
-<li>Day <%= i %> = <%= @data[i]["title"] %> - Inventory: <%= @data[i]["inventory"] %></li>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<%= javascript_tag do %>
+    columnsData = []
+
+    columnLabels = <%= @columnNames.to_s.html_safe %>;
+    columnLabels.unshift(null);
+    columnsData.push(columnLabels)
+
+
+    <% @inventoryByVariant.each do |key, value| %>
+        values = <%= value.to_s.html_safe %>
+        values.unshift("<%= key %>")
+        console.log(values)
+        columnsData.push(values)
+    <% end %>
+
+
+    $(function () {
+      $('#container').highcharts({
+        chart: {
+         type: 'column'
+        },
+
+        title: {
+         text: 'Inventory By Month'
+        },
+
+        data: {
+          columns: columnsData
+        }
+      });
+    });
 <% end %>
-</ul>

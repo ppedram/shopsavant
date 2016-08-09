@@ -1,0 +1,6 @@
+<h1>Scanned Collections</h1>
+<ul>
+  <% @collections.each do |item| %>
+      <li><a href="/collections/<%= item["handle"] %>/products"><%= item["handle"] %></a></li>
+  <% end %>
+</ul>

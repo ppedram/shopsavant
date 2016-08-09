@@ -1,4 +1,8 @@
 class CollectionsController < ApplicationController
+  def index
+    @collections = Collection.includes(:products).where.not( :products => { :id => nil })
+  end
+
   def scan
     url = "http://www.fashionnova.com/collections.json"
     uri = URI(url)
