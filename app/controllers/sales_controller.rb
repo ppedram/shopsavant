@@ -3,7 +3,7 @@ class SalesController < ApplicationController
     def index
         @product = Product.find_by(handle: params[:product_handle])
         @columnNames = self.getColumnNames()
-        @inventoryByVariant = self.getInventoryByVariantForMonth
+        @inventoryByVariant = self.getInventoryByVariantForMonth()
     end
 
     def getColumnNames
@@ -38,15 +38,34 @@ class SalesController < ApplicationController
     def getInventoryByVariantForMonth
         today = Time.now.getutc.to_date
         variants = Hash.new
+
         for i in 1..today.mday
             day = getInventoryByDay(today.beginning_of_month.advance(:days => i - 1))
 
-            day.each do |item|
-                if variants[item["title"]] == nil
-                    variants[item["title"]] = []
+            if day.length > 0
+                day.each do |item|
+                    if variants[item["title"]] == nil
+                        variants[item["title"]] = []
+                    end
                 end
+            end
+        end
 
-                variants[item["title"]].append(item["inventory"])
+        for i in 1..today.mday
+            day = getInventoryByDay(today.beginning_of_month.advance(:days => i - 1))
+
+            if day.length > 0
+                day.each do |item|
+                    if variants[item["title"]] == nil
+                        variants[item["title"]] = []
+                    end
+
+                    variants[item["title"]].append(item["inventory"])
+                end
+            else
+              variants.each do |key, value|
+                  variants[key].append(0)
+              end
             end
         end
       return variants
