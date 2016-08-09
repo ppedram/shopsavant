@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     
     @products.each do |item|
       product = Product.find_or_initialize_by(product_id: item["id"])
+      product.title = item["title"]
       product.handle = item["handle"]
       product.product_type = item["product_type"]
       product.vendor = item["vendor"]

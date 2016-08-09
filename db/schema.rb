@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805230005) do
+ActiveRecord::Schema.define(version: 20160809192550) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "collection_id",  limit: 12
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160805230005) do
     t.integer  "collection_id", limit: 12
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "title"
   end
 
   add_index "products", ["collection_id"], name: "index_products_on_collection_id"
