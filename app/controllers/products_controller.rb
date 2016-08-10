@@ -3,17 +3,28 @@ require "json"
 class ProductsController < ApplicationController
   def index
     collection = Collection.find_by(:handle => params[:collection])
-    @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil })
+    @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil }).order(created_at: :desc)
   end
 
-  def scan
-    url = "http://www.fashionnova.com/collections/#{params[:collection]}/products.json"
+  def scanAll
+    # collections = Collection.includes(:products).where.not(:products => { :id => nil })
+    # collections.each do |item|
+      scan("new")
+    # end
+  end
+
+  def scan(path = nil)
+    if path == nil {
+      path = params[:collection]
+    }
+
+    url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=1000"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
     
     # Get the collection specified
-    @collection = Collection.find_by(handle: params[:collection])
+    @collection = Collection.find_by(handle: path)
     
     @products = json["products"]
     
@@ -40,6 +51,8 @@ class ProductsController < ApplicationController
           sku: item_v["sku"]
         )
       end
+
+      puts "Scanned: #{product.handle}"
      end
   end
   

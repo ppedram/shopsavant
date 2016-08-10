@@ -71,7 +71,7 @@ class SalesController < ApplicationController
       return variants
     end
     
-    def getSalesByHandle
+    def getInventoryByHandle
         inventoryByDay = []
         today = Time.now.getutc.to_date
         for i in 1..today.mday

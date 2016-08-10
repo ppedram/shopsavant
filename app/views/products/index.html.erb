@@ -1,5 +1,5 @@
 <ul>
 <% @products.each do |item| %>
-    <li><a href="/products/<%= item["handle"] %>/sales"><%= item["handle"] %></a></li>
+    <li><a href="/products/<%= item["handle"] %>/sales"><%= item["handle"] %></a> - <%= item["created_at"].strftime("%m/%d/%Y") %></li>
 <% end %>
 </ul>
