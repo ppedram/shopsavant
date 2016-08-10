@@ -14,9 +14,9 @@ class ProductsController < ApplicationController
   end
 
   def scan(path = nil)
-    if path == nil {
+    if path == nil
       path = params[:collection]
-    }
+    end
 
     url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=1000"
     uri = URI(url)
