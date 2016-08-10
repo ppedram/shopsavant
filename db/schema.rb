@@ -14,22 +14,22 @@
 ActiveRecord::Schema.define(version: 20160809192550) do
 
   create_table "collections", force: :cascade do |t|
-    t.integer  "collection_id",  limit: 12
+    t.integer  "collection_id",  limit: 8
     t.string   "handle"
     t.string   "title"
     t.integer  "products_count"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer  "product_id",    limit: 12
+    t.integer  "product_id",    limit: 8
     t.string   "handle"
     t.string   "product_type"
     t.string   "vendor"
-    t.integer  "collection_id", limit: 12
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "collection_id", limit: 8
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "title"
   end
 

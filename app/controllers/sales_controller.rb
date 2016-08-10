@@ -1,9 +1,15 @@
 class SalesController < ApplicationController
     
     def index
-        @product = Product.find_by(handle: params[:product_handle])
-        @columnNames = self.getColumnNames()
-        @inventoryByVariant = self.getInventoryByVariantForMonth()
+      @product = Product.find_by(handle: params[:product_handle])
+      @columnNames = self.getColumnNames()
+      @inventoryByVariant = self.getInventoryByVariantForMonth()
+
+      today = Time.now.getutc.to_date
+      puts "Inventory Date Range:"
+      puts today.beginning_of_month.advance(:days => today.mday - 1).beginning_of_day
+      puts "to"
+      puts puts today.beginning_of_month.advance(:days => today.mday - 1).end_of_day
     end
 
     def getColumnNames
@@ -98,7 +104,7 @@ class SalesController < ApplicationController
     end
     
     def getInventoryByDay(date)
-        variants = @product.variants.where(:created_at => date.beginning_of_day.utc..date.end_of_day.utc, :product_id => @product.id)
+        variants = @product.variants.where(:created_at => date.beginning_of_day..date.end_of_day, :product_id => @product.id)
         
         data = []
         variants.each do |variant|
