@@ -9,10 +9,7 @@ class Product < ActiveRecord::Base
         self.scan("new")
     end
 
-    def self.scan(path, page = nil)
-        if page == nil
-          page = 1
-        end
+    def self.scan(path, page = 1)
         # Shopify currently caps us at 250 products per page
         url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=250&page=" + page.to_s
         uri = URI(url)
