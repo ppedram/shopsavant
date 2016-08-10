@@ -24,5 +24,7 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
 
     config.time_zone = 'Pacific Time (US & Canada)'
+
+    config.logger = Logger.new(STDOUT)
   end
 end
