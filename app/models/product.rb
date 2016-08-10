@@ -9,8 +9,12 @@ class Product < ActiveRecord::Base
         self.scan("new")
     end
 
-    def self.scan(path)
-        url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=1000"
+    def self.scan(path, page = nil)
+        if page == nil
+          page = 1
+        end
+        # Shopify currently caps us at 250 products per page
+        url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=250&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
         json = JSON.parse(response)
@@ -46,5 +50,10 @@ class Product < ActiveRecord::Base
 
             puts "Scanned: #{product.handle}"
         end
+
+      # Scan next page until we hit 4 / 1000 products
+      if page < 4
+        self.scan(path, page + 1)
+      end
     end
 end
