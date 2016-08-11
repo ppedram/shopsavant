@@ -14,10 +14,11 @@ class SalesController < ApplicationController
 
     def getColumnNames
         today = Time.now.getutc.to_date
+        date = Date.today
         columns = []
-        for i in 1..today.mday
-            date = today.beginning_of_month.advance(:days => (i - 1))
-            columns.append(date.strftime("%d/%m/%Y"))
+        for i in 1..date.mday
+            day = date.beginning_of_month.advance(:days => (i - 1))
+            columns.append(day.strftime("%d/%m/%Y"))
         end
 
       return columns
@@ -27,7 +28,7 @@ class SalesController < ApplicationController
         inventoryByDay = []
         today = Time.now.getutc.to_date
         date = Date.today
-        for i in 1..today.mday
+        for i in 1..date.mday
             day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             inventory = 0
