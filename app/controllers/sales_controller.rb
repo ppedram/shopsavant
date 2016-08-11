@@ -61,6 +61,7 @@ class SalesController < ApplicationController
 
         for i in 1..date.mday
             day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
+            puts day
 
             if day.length > 0
                 day.each do |item|
