@@ -26,8 +26,9 @@ class SalesController < ApplicationController
     def getInventoryForMonth
         inventoryByDay = []
         today = Time.now.getutc.to_date
-        for i in 1..today.mday
-            day = getInventoryByDay(today.beginning_of_month.advance(:days => i - 1))
+        date = Date.today
+        for i in 1..date.mday
+            day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             inventory = 0
             # Calculate total inventory of all variants sold
@@ -43,10 +44,11 @@ class SalesController < ApplicationController
 
     def getInventoryByVariantForMonth
         today = Time.now.getutc.to_date
+        date = Date.today
         variants = Hash.new
 
-        for i in 1..today.mday
-            day = getInventoryByDay(today.beginning_of_month.advance(:days => i - 1))
+        for i in 1..date.mday
+            day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             if day.length > 0
                 day.each do |item|
@@ -57,8 +59,8 @@ class SalesController < ApplicationController
             end
         end
 
-        for i in 1..today.mday
-            day = getInventoryByDay(today.beginning_of_month.advance(:days => i - 1))
+        for i in 1..date.mday
+            day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             if day.length > 0
                 day.each do |item|
