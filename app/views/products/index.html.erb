@@ -2,7 +2,7 @@
 <% @products.each do |item| %>
       <li><a href="/products/<%= item["handle"] %>/sales"><%= item["title"] %></a> - <%= item["product_updated_at"].strftime("%m/%d/%Y") %> - <a href="/products/<%= item["handle"] %>/sales/sku">by SKU</a></li>
       <% if defined?(previousItem) %>
-        <% if item["product_updated_at"].mday != previousItem.mday %>
+        <% if item["product_updated_at"].to_date.mday != previousItem.to_date.mday %>
         <li>-----------</li>
         <% end %>
       <% end %>
