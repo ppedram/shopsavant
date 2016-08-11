@@ -5,11 +5,11 @@ class SalesController < ApplicationController
       @columnNames = self.getColumnNames()
       @inventoryByVariant = self.getInventoryByVariantForMonth()
 
-      today = Time.now.getutc.to_date
-      puts "Inventory Date Range:"
-      puts today.beginning_of_month.advance(:days => today.mday - 1).beginning_of_day
-      puts "to"
-      puts puts today.beginning_of_month.advance(:days => today.mday - 1).end_of_day
+      # today = Time.now.getutc.to_date
+      # puts "Inventory Date Range:"
+      # puts today.beginning_of_month.advance(:days => today.mday - 1).beginning_of_day
+      # puts "to"
+      # puts puts today.beginning_of_month.advance(:days => today.mday - 1).end_of_day
     end
 
     def getColumnNames
@@ -27,7 +27,7 @@ class SalesController < ApplicationController
         inventoryByDay = []
         today = Time.now.getutc.to_date
         date = Date.today
-        for i in 1..date.mday
+        for i in 1..today.mday
             day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             inventory = 0
@@ -47,7 +47,7 @@ class SalesController < ApplicationController
         date = Date.today
         variants = Hash.new
 
-        for i in 1..date.mday
+        for i in 1..today.mday
             day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
 
             if day.length > 0
@@ -59,7 +59,7 @@ class SalesController < ApplicationController
             end
         end
 
-        for i in 1..date.mday
+        for i in 1..today.mday
             day = getInventoryByDay(date.beginning_of_month.advance(:days => i - 1))
             puts day
 
