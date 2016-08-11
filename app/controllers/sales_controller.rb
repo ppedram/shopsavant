@@ -1,15 +1,15 @@
 class SalesController < ApplicationController
     
-    def index
+    def inventoryBySKU
       @product = Product.find_by(handle: params[:product_handle])
       @columnNames = self.getColumnNames()
       @inventoryByVariant = self.getInventoryByVariantForMonth()
+    end
 
-      # today = Time.now.getutc.to_date
-      # puts "Inventory Date Range:"
-      # puts today.beginning_of_month.advance(:days => today.mday - 1).beginning_of_day
-      # puts "to"
-      # puts puts today.beginning_of_month.advance(:days => today.mday - 1).end_of_day
+    def inventoryByProduct
+      @product = Product.find_by(handle: params[:product_handle])
+      @columnNames = self.getColumnNames()
+      @inventory = self.getInventoryForMonth()
     end
 
     def getColumnNames

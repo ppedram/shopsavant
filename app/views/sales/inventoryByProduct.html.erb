@@ -1,0 +1,31 @@
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<%= javascript_tag do %>
+    columnsData = []
+
+    columnLabels = <%= @columnNames.to_s.html_safe %>;
+    columnLabels.unshift(null);
+    columnsData.push(columnLabels)
+
+
+    values = <%= @inventory %>
+    values.unshift("Inventory")
+    columnsData.push(values)
+
+
+    $(function () {
+    $('#container').highcharts({
+    chart: {
+    type: 'column'
+    },
+
+    title: {
+    text: 'Inventory By Product'
+    },
+
+    data: {
+    columns: columnsData
+    }
+    });
+    });
+<% end %>
