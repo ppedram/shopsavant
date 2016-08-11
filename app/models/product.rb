@@ -3,7 +3,8 @@ require "json"
 class Product < ActiveRecord::Base
     validates_uniqueness_of :product_id
     belongs_to :collection
-    has_many :variants
+    has_many :variants, :dependent => :destroy
+
 
     def self.scanAll
         self.scan("new")
@@ -11,7 +12,7 @@ class Product < ActiveRecord::Base
 
     def self.scan(path, page = 1)
         # Shopify currently caps us at 250 products per page
-        url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=30&page=" + page.to_s
+        url = "http://www.fashionnova.com/collections/#{path}/products.json?limit=1&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
         json = JSON.parse(response)
@@ -27,6 +28,8 @@ class Product < ActiveRecord::Base
             product.handle = item["handle"]
             product.product_type = item["product_type"]
             product.vendor = item["vendor"]
+            product.product_published_at = item["published_at"]
+            product.product_updated_at = item["updated_at"]
             product.collection_id = @collection.id
             product.save
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809192550) do
+ActiveRecord::Schema.define(version: 20160811035341) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "collection_id",  limit: 8
@@ -23,14 +23,16 @@ ActiveRecord::Schema.define(version: 20160809192550) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer  "product_id",    limit: 8
+    t.integer  "product_id",           limit: 8
     t.string   "handle"
     t.string   "product_type"
     t.string   "vendor"
-    t.integer  "collection_id", limit: 8
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "collection_id",        limit: 8
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "title"
+    t.datetime "product_published_at"
+    t.datetime "product_updated_at"
   end
 
   add_index "products", ["collection_id"], name: "index_products_on_collection_id"
