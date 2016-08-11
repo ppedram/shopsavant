@@ -1,5 +1,11 @@
 <ul>
 <% @products.each do |item| %>
-    <li><a href="/products/<%= item["handle"] %>/sales"><%= item["title"] %></a> - <%= item["product_updated_at"].strftime("%m/%d/%Y") %> - <a href="/products/<%= item["handle"] %>/sales/sku">by SKU</a></li>
+      <li><a href="/products/<%= item["handle"] %>/sales"><%= item["title"] %></a> - <%= item["product_updated_at"].strftime("%m/%d/%Y") %> - <a href="/products/<%= item["handle"] %>/sales/sku">by SKU</a></li>
+      <% if defined?(previousItem) %>
+        <% if item["product_updated_at"].mday != previousItem.mday %>
+        <li>-----------</li>
+        <% end %>
+      <% end %>
+      <% previousItem = item["product_updated_at"] %>
 <% end %>
 </ul>
