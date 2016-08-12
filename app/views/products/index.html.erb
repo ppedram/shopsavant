@@ -1,11 +1,29 @@
-<ul>
-<% @products.each do |item| %>
-      <li><a href="/products/<%= item["handle"] %>/sales"><%= item["title"] %></a> - <%= item["product_updated_at"].strftime("%m/%d/%Y") %> - <a href="/products/<%= item["handle"] %>/sales/sku">by SKU</a></li>
-      <% if defined?(previousItem) %>
-        <% if item["product_updated_at"].to_date.mday != previousItem.to_date.mday %>
-        <li>-----------</li>
-        <% end %>
-      <% end %>
-      <% previousItem = item["product_updated_at"] %>
+<%= javascript_tag do %>
+    products = <%= @products.to_a.to_s.html_safe %>;
 <% end %>
-</ul>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Products</div>
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Inventory</th>
+      <th>Sales</th>
+      <th>Vendor</th>
+      <th>Last Updated</th>
+    </thead>
+    <tbody>
+    <% @products.each do |item| %>
+        <tr>
+          <td><%= item["title"] %></td>
+          <td><%= item["product_type"] %></td>
+          <td><a href="/products/<%= item["handle"] %>/inventory/sku"><%= item["total_inventory"] %></a></td>
+          <td><%= item["total_sales"] %></td>
+          <td><%= item["vendor"] %></td>
+          <td><%= item["product_updated_at"].strftime("%m/%d/%Y") %></a>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

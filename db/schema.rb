@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811035341) do
+ActiveRecord::Schema.define(version: 20160812211836) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "collection_id",  limit: 8
@@ -33,9 +33,20 @@ ActiveRecord::Schema.define(version: 20160811035341) do
     t.string   "title"
     t.datetime "product_published_at"
     t.datetime "product_updated_at"
+    t.integer  "total_inventory"
+    t.integer  "total_sales"
   end
 
   add_index "products", ["collection_id"], name: "index_products_on_collection_id"
+
+  create_table "sales", force: :cascade do |t|
+    t.integer  "sales_count"
+    t.integer  "product_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "sales", ["product_id"], name: "index_sales_on_product_id"
 
   create_table "variants", force: :cascade do |t|
     t.string   "title"

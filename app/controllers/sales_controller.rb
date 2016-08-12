@@ -105,7 +105,7 @@ class SalesController < ApplicationController
     end
     
     def getInventoryByDay(date)
-        variants = @product.variants.where(:created_at => date.beginning_of_day..date.end_of_day, :product_id => @product.id)
+        variants = @product.variants.where(:created_at => date.beginning_of_day..date.end_of_day)
         
         data = []
         variants.each do |variant|
