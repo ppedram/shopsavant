@@ -12,7 +12,7 @@
     <tbody>
     <% @products.each do |item| %>
         <tr>
-          <td><%= item["title"] %></td>
+          <td><a href="/products/<%= item["handle"] %>/inventory"><%= item["title"] %></a></td>
           <td><%= item["product_type"] %></td>
           <td><a href="/products/<%= item["handle"] %>/inventory/sku"><%= item["total_inventory"] %></a></td>
           <td><%= item["total_sales"] %></td>
