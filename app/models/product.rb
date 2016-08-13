@@ -82,7 +82,7 @@ class Product < ActiveRecord::Base
         end
 
       # Scan next page until we hit 4 / 1000 products
-      if page < 4
+      if page < 8
         self.scan(path, page + 1)
       end
     end
