@@ -60,7 +60,13 @@ class Product < ActiveRecord::Base
             end
 
             # Calculate sales since yesterday, if yesterday's data exists and product hasn't been restocked
-            (total_previous_inventory >= total_inventory) ? sale = (total_previous_inventory - total_inventory).abs : sale = 0
+            if (total_previous_inventory >= total_inventory)
+              sale = (total_previous_inventory - total_inventory).abs
+            elsif total_previous_inventory == 0
+              sale = total_inventory
+            else
+              sale = 0
+            end
             product.sales.create(sales_count: sale)
 
             # Compile sales
