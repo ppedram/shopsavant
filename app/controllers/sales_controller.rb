@@ -2,14 +2,14 @@ class SalesController < ApplicationController
     
     def inventoryBySKU
       @product = Product.find_by(handle: params[:product_handle])
-      @columnNames = self.getColumnNames()
-      @inventoryByVariant = self.getInventoryByVariantForMonth()
+      @columnNames = self.getColumnNames
+      @inventoryByVariant = self.getInventoryByVariantForMonth
     end
 
     def inventoryByProduct
       @product = Product.find_by(handle: params[:product_handle])
-      @columnNames = self.getColumnNames()
-      @inventory = self.getInventoryForMonth()
+      @columnNames = self.getColumnNames
+      @inventory = self.getInventoryForMonth
     end
 
     def getColumnNames
