@@ -3,7 +3,13 @@ require "json"
 class ProductsController < ApplicationController
   def index
     collection = Collection.find_by(:handle => params[:collection])
-    @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil }).order(product_updated_at: :desc)
+    if params[:order_by] == "sales"
+      @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil }).order(total_sales: :desc)
+    elsif params[:order_by] == "inventory"
+        @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil }).order(total_inventory: :desc)
+    else
+      @products = Product.includes(:variants).where( :collection => collection.id).where.not(:variants => { :id => nil }).order(product_updated_at: :desc)
+    end
   end
 
   def scan
