@@ -29,15 +29,14 @@ class Product < ActiveRecord::Base
             product.vendor = item["vendor"]
             product.product_published_at = item["published_at"]
             product.product_updated_at = item["updated_at"]
-            product.save
+
+            total_previous_inventory = item["total_inventory"]
 
             # Load more detailed JSON to get inventory
             product_url = "http://www.fashionnova.com/products/#{product.handle}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
             product_json = JSON.parse(product_response)
-
-            total_previous_inventory = item["total_inventory"].to_i
 
             # Compile inventory
             total_inventory = 0
