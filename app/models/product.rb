@@ -32,7 +32,7 @@ class Product < ActiveRecord::Base
             product.product_published_at = item["published_at"]
             product.product_updated_at = item["updated_at"]
 
-            total_previous_inventory = item["total_inventory"].to_i
+            total_previous_inventory = item["total_inventory"]
 
             product.save
 
@@ -58,13 +58,15 @@ class Product < ActiveRecord::Base
                 end
             end
 
+            puts "Previous Inventory: #{total_previous_inventory} - Current Inventory: #{total_inventory}"
+
             # Calculate sales since yesterday, if yesterday's data exists and product hasn't been restocked
             if (total_previous_inventory >= total_inventory)
               sale = (total_previous_inventory - total_inventory).abs
             else
               sale = 0
             end
-            puts "Previous Inventory: #{total_previous_inventory} - Current Inventory: #{total_inventory}"
+
             product.sales.create(sales_count: sale)
 
             # Compile sales
