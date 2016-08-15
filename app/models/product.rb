@@ -76,7 +76,7 @@ class Product < ActiveRecord::Base
             product.total_inventory = total_inventory
             product.save
 
-            puts "Scanned: #{product.handle}"
+            puts "Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
         end
 
       # Scan next page until we hit 4 / 1000 products
