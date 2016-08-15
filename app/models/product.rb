@@ -34,6 +34,8 @@ class Product < ActiveRecord::Base
 
             total_previous_inventory = item["total_inventory"]
 
+            product.save
+
             # Load more detailed JSON to get inventory
             product_url = "http://www.fashionnova.com/products/#{product.handle}.json"
             product_uri = URI(product_url)
