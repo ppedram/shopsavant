@@ -6,6 +6,8 @@ class Product < ActiveRecord::Base
     has_many :variants, :dependent => :destroy
     has_many :sales, :dependent => :destroy
 
+    attr_accessor :title, :handle, :product_type, :vendor, :product_published_at, :product_updated_at, :total_sales, :total_inventory
+
 
     def self.scanAll
         self.scan
