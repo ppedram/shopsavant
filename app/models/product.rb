@@ -61,6 +61,7 @@ class Product < ActiveRecord::Base
             else
               sale = 0
             end
+            puts "Previous Inventory: #{total_previous_inventory} - Current Inventory: #{total_inventory}"
             product.sales.create(sales_count: sale)
 
             # Compile sales
