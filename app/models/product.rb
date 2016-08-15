@@ -32,7 +32,7 @@ class Product < ActiveRecord::Base
             product.product_published_at = item["published_at"]
             product.product_updated_at = item["updated_at"]
 
-            total_previous_inventory = product.total_inventory.to_i
+            total_previous_inventory = product["total_inventory"].to_i
 
             product.save
 
