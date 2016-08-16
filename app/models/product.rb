@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
 
     def self.scan(page = 1)
         # Shopify currently caps us at 250 products per page
-        url = "http://www.fashionnova.com/products.json?limit=10&page=" + page.to_s
+        url = "http://www.fashionnova.com/products.json?limit=250&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
         json = JSON.parse(response)
@@ -58,8 +58,6 @@ class Product < ActiveRecord::Base
                 end
             end
 
-            puts "Previous Inventory: #{total_previous_inventory} - Current Inventory: #{total_inventory}"
-
             # Calculate sales since yesterday, if yesterday's data exists and product hasn't been restocked
             if (total_previous_inventory >= total_inventory)
               sale = (total_previous_inventory - total_inventory).abs
@@ -81,7 +79,7 @@ class Product < ActiveRecord::Base
             puts "Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
         end
 
-      # Scan next page until we hit 4 / 1000 products
+      # Scan next page until we hit 8 / 2000 products
       if page < 8
         self.scan(page + 1)
       end
