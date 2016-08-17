@@ -15,15 +15,14 @@ class Product < ActiveRecord::Base
 
     def self.scan(page = 1)
         # Shopify currently caps us at 250 products per page
-        url = "http://www.fashionnova.com/products.json?limit=1&page=" + page.to_s
+        url = "http://www.fashionnova.com/products.json?limit=250&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
-        puts "Parsing Products"
         json = JSON.parse(response)
 
         @products = json["products"]
 
-        @products.each do |item|
+        @products.each_with_index do |item, index|
             product = Product.find_or_initialize_by(product_id: item["id"])
             # Basic product attributes
             product["title"] = item["title"]
@@ -37,10 +36,7 @@ class Product < ActiveRecord::Base
 
             product.save
 
-            puts product["handle"]
-
             # Load more detailed JSON to get inventory
-            puts "Parsing Specific Product"
             product_url = "http://www.fashionnova.com/products/#{product["handle"]}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
@@ -80,7 +76,7 @@ class Product < ActiveRecord::Base
             product["total_inventory"] = total_inventory
             product.save
 
-            puts "Scanned: #{product["handle"]} - Total Sales: #{sale}/#{total_sales}"
+            puts "(#{index})Scanned: #{product["handle"]} - Total Sales: #{sale}/#{total_sales}"
         end
 
       # Scan next page until we hit 8 / 2000 products
