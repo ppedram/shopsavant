@@ -18,6 +18,7 @@ class Product < ActiveRecord::Base
         url = "http://www.fashionnova.com/products.json?limit=1&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
+        puts "Parsing Products"
         json = JSON.parse(response)
 
         @products = json["products"]
@@ -36,7 +37,10 @@ class Product < ActiveRecord::Base
 
             product.save
 
+            puts product
+
             # Load more detailed JSON to get inventory
+            puts "Parsing Specific Product"
             product_url = "http://www.fashionnova.com/products/#{product.handle}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
