@@ -37,11 +37,11 @@ class Product < ActiveRecord::Base
 
             product.save
 
-            puts product
+            puts product["handle"]
 
             # Load more detailed JSON to get inventory
             puts "Parsing Specific Product"
-            product_url = "http://www.fashionnova.com/products/#{product.handle}.json"
+            product_url = "http://www.fashionnova.com/products/#{product["handle"]}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
             product_json = JSON.parse(product_response)
@@ -80,7 +80,7 @@ class Product < ActiveRecord::Base
             product["total_inventory"] = total_inventory
             product.save
 
-            puts "Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
+            puts "Scanned: #{product["handle"]} - Total Sales: #{sale}/#{total_sales}"
         end
 
       # Scan next page until we hit 8 / 2000 products
