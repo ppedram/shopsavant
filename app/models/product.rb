@@ -15,22 +15,22 @@ class Product < ActiveRecord::Base
 
     def self.scan(page = 1)
         # Shopify currently caps us at 250 products per page
-        url = "http://www.fashionnova.com/products.json?limit=250&page=" + page.to_s
+        url = "http://www.fashionnova.com/products.json?limit=1&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
         json = JSON.parse(response)
 
         @products = json["products"]
 
-        @products.each do |item|
+        @products.each_with_index do |item, index|
             product = Product.find_or_initialize_by(product_id: item["id"])
             # Basic product attributes
-            product.title = item["title"]
-            product.handle = item["handle"]
-            product.product_type = item["product_type"]
-            product.vendor = item["vendor"]
-            product.product_published_at = item["published_at"]
-            product.product_updated_at = item["updated_at"]
+            product["title"] = item["title"]
+            product["handle"] = item["handle"]
+            product["product_type"] = item["product_type"]
+            product["vendor"] = item["vendor"]
+            product["product_published_at"] = item["published_at"]
+            product["product_updated_at"] = item["updated_at"]
 
             total_previous_inventory = product["total_inventory"].to_i
 
@@ -72,15 +72,15 @@ class Product < ActiveRecord::Base
             total_sales = previous_sales + sale
 
             # Final save now that we have inventory and sales
-            product.total_sales = total_sales
-            product.total_inventory = total_inventory
+            product["total_sales"] = total_sales
+            product["total_inventory"] = total_inventory
             product.save
 
-            puts "Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
+            puts "(#{index}) Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
         end
 
       # Scan next page until we hit 8 / 2000 products
-      if page < 8
+      if page < 6
         self.scan(page + 1)
       end
     end
