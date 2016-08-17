@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
 
         @products = json["products"]
 
-        @products.each_with_index do |item, index|
+        @products.each do |item|
             product = Product.find_or_initialize_by(product_id: item["id"])
             # Basic product attributes
             product["title"] = item["title"]
@@ -76,7 +76,7 @@ class Product < ActiveRecord::Base
             product["total_inventory"] = total_inventory
             product.save
 
-            puts "(#{index}) Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
+            puts "Scanned: #{product.handle} - Total Sales: #{sale}/#{total_sales}"
         end
 
       # Scan next page until we hit 8 / 2000 products
