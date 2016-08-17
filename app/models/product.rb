@@ -55,6 +55,7 @@ class Product < ActiveRecord::Base
                 inventory = item_v["inventory_quantity"].to_i
                 if inventory > 0
                   total_inventory += inventory
+                    # puts "Add Inventory: #{inventory}"
                 end
             end
 
@@ -72,11 +73,13 @@ class Product < ActiveRecord::Base
             total_sales = previous_sales + sale
 
             # Final save now that we have inventory and sales
+            # puts "Total Inventory: #{total_inventory}"
             product["total_sales"] = total_sales
             product["total_inventory"] = total_inventory
             product.save
 
             puts "(#{index})Scanned: #{product["handle"]} - Total Sales: #{sale}/#{total_sales}"
+            puts "------------"
         end
 
       # Scan next page until we hit 8 / 2000 products
