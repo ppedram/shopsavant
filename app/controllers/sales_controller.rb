@@ -1,13 +1,13 @@
 class SalesController < ApplicationController
     
     def inventoryBySKU
-      @product = Product.find_by(handle: params[:product_handle])
+      @product = Product.find_by(handle: params[:handle])
       @columnNames = self.getColumnNames
       @inventoryByVariant = self.getInventoryByVariantForMonth
     end
 
     def inventoryByProduct
-      @product = Product.find_by(handle: params[:product_handle])
+      @product = Product.find_by(handle: params[:handle])
       @columnNames = self.getColumnNames
       @inventory = self.getInventoryForMonth
     end
@@ -32,7 +32,7 @@ class SalesController < ApplicationController
             inventory = 0
             # Calculate total inventory of all variants sold
             day.each do |item|
-                inventory += item["inventory"].to_i
+                inventory += item["inventory_quantity"].to_i
             end
 
             inventoryByDay.append(inventory)
@@ -67,7 +67,7 @@ class SalesController < ApplicationController
                         variants[item["title"]] = []
                     end
 
-                    variants[item["title"]].append(item["inventory"])
+                    variants[item["title"]].append(item["inventory_quantity"])
                 end
             else
               variants.each do |key, value|
@@ -91,7 +91,7 @@ class SalesController < ApplicationController
 
             # Calculate total inventory of all variants sold
             day.each do |item|
-                inventory += item["inventory"].to_i
+                inventory += item["inventory_quantity"].to_i
                 prices.append(item["price"].to_f)
             end
             hash["totalInventory"] = inventory
@@ -112,7 +112,7 @@ class SalesController < ApplicationController
             data.append(
                 {
                     "title" => variant.title,
-                    "inventory" => variant.inventory,
+                    "inventory_quantity" => variant.inventory,
                     "price" => variant.price,
                     "date" => variant.created_at
                 }
