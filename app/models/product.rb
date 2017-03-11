@@ -37,7 +37,7 @@ class Product < ActiveRecord::Base
             product.save
 
             # Load more detailed JSON to get inventory
-            product_url = "http://www.fashionnova.com/products/#{product["handle"]}.json"
+            product_url = "http://www.leanercreamer.com/products/#{product["handle"]}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
             product_json = JSON.parse(product_response)
