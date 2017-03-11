@@ -15,6 +15,8 @@ class ProductsController < ApplicationController
   def scan
     Product.scan(params[:collection])
   end
+  
   def allowed_params
     params.require(:collection)
+  end
 end
