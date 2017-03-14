@@ -32,11 +32,11 @@ def generate_csv_data(template = nil)
 
   # Convert from utf8 to gbk to make it compatible with Windows Office Excel
   # And Mac number can work with GBK too
-  data = data.encode('GBK', undef: :replace, replace: "")
-end
+ # data = data.encode('GBK', undef: :replace, replace: "")
+#end
 
 # Respond csv file when csv format requested
-format.csv { send_data generate_csv_data }
+#format.csv { send_data generate_csv_data }
 
   
 end
