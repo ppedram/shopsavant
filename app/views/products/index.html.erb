@@ -1,5 +1,6 @@
 <%= javascript_tag do %>
     products = <%= @products.to_json.html_safe %>;
+    products = <%= @products.to_csv.html_safe %>;
 <% end %>
 
 <div class="panel panel-default">
