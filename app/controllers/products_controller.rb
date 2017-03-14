@@ -16,6 +16,15 @@ class ProductsController < ApplicationController
     Product.scan(params[:collection])
   end
   
+  def index
+  @products = current_user.products
+  respond_to do |format|
+    format.html
+    format.xls
+    format.csv
+  end
+end
+  
   def allowed_params
     params.require(:collection)
   end
