@@ -6,7 +6,6 @@ def index
   respond_to do |format|
     format.html
     format.csv { send_data @products.as_csv }
-    format.xls
   end
 end
 
