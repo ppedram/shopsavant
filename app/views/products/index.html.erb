@@ -2,6 +2,8 @@
     products = <%= @products.to_json.html_safe %>;
 <% end %>
 
+render :csv
+
 <div class="panel panel-default">
   <div class="panel-heading">Products</div>
   <table class="table">
