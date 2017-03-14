@@ -1,5 +1,14 @@
 require "json"
 
+def index
+  @posts = products.order(:created_at)
+
+  respond_to do |format|
+    format.html
+    format.csv { send_data @products.as_csv }
+  end
+end
+
 class ProductsController < ApplicationController
   def index
     collection = Collection.find_by(:handle => params[:collection])
