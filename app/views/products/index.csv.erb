@@ -1,4 +1,11 @@
-<table class="table">
+<%= javascript_tag do %>
+    products = <%= @products.to_json.csv_safe %>;
+<% end %>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Products</div>
+  <table class="table">
     <thead>
       <th>Name</th>
       <th>Type</th>
@@ -26,3 +33,4 @@
     <% end %>
     </tbody>
   </table>
+</div>
