@@ -2,7 +2,6 @@
     products = <%= @products.to_json.html_safe %>;
 <% end %>
 
-<%= link_to 'CSV', report_path(report, format: :csv)%>
 
 <div class="panel panel-default">
   <div class="panel-heading">Products</div>
