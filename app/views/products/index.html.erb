@@ -1,5 +1,4 @@
 <%= javascript_tag do %>
-    products = <%= @products.to_json.html_safe %>;
     products = <%= @products.to_json.csv_safe %>;
 <% end %>
 
