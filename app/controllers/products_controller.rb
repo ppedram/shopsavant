@@ -5,7 +5,7 @@ def index
 
   respond_to do |format|
     format.html
-    format.csv { render text @products.as_csv }
+    format.csv { send_data @products.as_csv }
   end
 end
 
