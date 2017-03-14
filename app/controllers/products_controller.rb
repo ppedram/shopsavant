@@ -1,7 +1,7 @@
 require "json"
 
 def index
-  @products = post.order(:created_at)
+  @products = product.order(:created_at)
 
   respond_to do |format|
     format.html
