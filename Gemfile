@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 
+gem 'fastercsv', '~> 1.5', '>= 1.5.5'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets
