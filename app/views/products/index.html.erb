@@ -2,6 +2,7 @@
     products = <%= @products.to_json.html_safe %>;
 <% end %>
 
+ <%= link_to "Download CSV", products_path(format: "csv") %>
 
 <div class="panel panel-default">
   <div class="panel-heading">Products</div>
