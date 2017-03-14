@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   get 'products/:product_handle/inventory/sku', to: 'sales#inventoryBySKU'
   get 'products/:product_handle/inventory', to: 'sales#inventoryByProduct'
   root to: 'collections#index'
+  
+    resources :products do
+    collection { post :import }
+  end
 end
