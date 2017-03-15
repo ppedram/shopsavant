@@ -9,6 +9,7 @@
       <th>Name</th>
       <th>Type</th>
       <th>SKU</th>
+      <th>Price</th>
       <th><a href="/collections/<%= params[:collection] %>/products/inventory">Inventory</a></th>
       <th><a href="/collections/<%= params[:collection] %>/products/sales">Sales</a></th>
       <th>Vendor</th>
@@ -21,6 +22,7 @@
           <td><a href="/products/<%= item["handle"] %>/inventory"><%= item["title"] %></a> - <a href="http://www.jeffreestarcosmetics.com/products/<%= item["handle"] %>" target="_blank">View on Store</a></td>
           <td><%= item["product_type"] %></td>
           <td><%= item.variants[0]["sku"] %></td>
+          <td><%= item.variants[0]["price"] %></td>
           <td><a href="/products/<%= item["handle"] %>/inventory/sku"><%= item["total_inventory"] %></a></td>
           <td><%= item["total_sales"] %></td>
           <td><%= item["vendor"] %></td>
