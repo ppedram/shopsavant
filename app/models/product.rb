@@ -53,12 +53,12 @@ class Product < ActiveRecord::Base
                     sku: item_v["sku"]
                 )
                 inventory = item_v["inventory_quantity"].to_i
-                if inventory <= 0 #allows for negative inventory
+                if inventory > 0
                   total_inventory += inventory
                     # puts "Add Inventory: #{inventory}"
                 end
                 inventory = item_v["inventory_quantity"].to_i
-                if inventory > 0
+                if inventory <= 0 # allows for negative inventory
                   total_inventory += inventory
                 end
             end
