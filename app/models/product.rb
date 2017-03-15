@@ -57,6 +57,10 @@ class Product < ActiveRecord::Base
                   total_inventory += inventory
                     # puts "Add Inventory: #{inventory}"
                 end
+                inventory = item_v["inventory_quantity"].to_i
+                if inventory >= 0
+                  total_inventory += inventory
+                end
             end
 
             # Calculate sales since yesterday, if yesterday's data exists and product hasn't been restocked
