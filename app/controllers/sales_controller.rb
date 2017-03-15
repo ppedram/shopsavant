@@ -32,7 +32,7 @@ class SalesController < ApplicationController
             inventory = 0
             # Calculate total inventory of all variants sold
             day.each do |item|
-                inventory = item["inventory"].to_i
+                inventory += item["inventory"].to_i
             end
 
             inventoryByDay.append(inventory)
@@ -91,7 +91,7 @@ class SalesController < ApplicationController
 
             # Calculate total inventory of all variants sold
             day.each do |item|
-                inventory = item["inventory"].to_i
+                inventory += item["inventory"].to_i
                 prices.append(item["price"].to_f)
             end
             hash["totalInventory"] = inventory
