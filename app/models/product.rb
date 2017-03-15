@@ -1,6 +1,6 @@
 require "json"
 
-def self.to_csv #allows export to xls
+def self.to_csv # allows export to xls
   CSV.generate do |csv|
     csv << column_names
     all.each do |product|
