@@ -3,7 +3,7 @@ require "json"
 def index
   @products = product.order(:created_at)
 
-  respond_to do |format| # allows export to xls
+  respond_to do |format|
     format.html
     format.csv { send_data @products.as_csv }
     format.xls
