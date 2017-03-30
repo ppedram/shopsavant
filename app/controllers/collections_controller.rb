@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
   end
 
   def scan
-    url = "http://www.fashionnova.com/collections.json"
+    url = "http://www.gymshark.com/collections.json"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     json = JSON.parse(response)
