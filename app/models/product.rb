@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
 
     def self.scan(page = 1)
         # Shopify currently caps us at 250 products per page
-        url = "http://www.fashionnova.com/products.json?limit=250&page=" + page.to_s
+        url = "http://www.wantmylook.com/products.json?limit=250&page=" + page.to_s
         uri = URI(url)
         response = Net::HTTP.get(uri)
         json = JSON.parse(response)
@@ -46,7 +46,7 @@ class Product < ActiveRecord::Base
             product.save
 
             # Load more detailed JSON to get inventory
-            product_url = "http://www.fashionnova.com/products/#{product["handle"]}.json"
+            product_url = "http://www.wantmylook.com/products/#{product["handle"]}.json"
             product_uri = URI(product_url)
             product_response = Net::HTTP.get(product_uri)
             product_json = JSON.parse(product_response)
